@@ -1,0 +1,6 @@
+# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+server:
+  port: 8081
+spring:
+  main.show-banner: false
+ 

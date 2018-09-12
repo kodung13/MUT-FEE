@@ -1,0 +1,3 @@
+INSERT INTO USER_ACCT  VALUES (1, 'admin', '$2a$10$32Hw5zY7uvx0EgsfE/yQNuuL.Nrt5srepNP.vlmES2VKbYAnOBqC6','John', 'Doe', 'admin@example.org');
+INSERT INTO USER_ACCT  VALUES (2, 'user', '$2a$10$32Hw5zY7uvx0EgsfE/yQNuuL.Nrt5srepNP.vlmES2VKbYAnOBqC6','Jane', 'Doe', 'user@example.org');
+INSERT INTO USER_ACCT  VALUES (3,  'disabled', '$2a$10$32Hw5zY7uvx0EgsfE/yQNuuL.Nrt5srepNP.vlmES2VKbYAnOBqC6','Johnny', 'Doe', 'disabled@example.org');

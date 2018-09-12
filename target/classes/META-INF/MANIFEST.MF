@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+Implementation-Title: feeapi
+Implementation-Version: 0.0.1-SNAPSHOT
 Built-By: supportbkk
+Implementation-Vendor-Id: com.mut
 Build-Jdk: 1.8.0_112
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/feeapi
 Created-By: Maven Integration for Eclipse
 
