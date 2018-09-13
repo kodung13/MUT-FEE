@@ -3,65 +3,65 @@ package com.mut.feeapi.security.service;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+
 import com.mut.feeapi.common.configuration.Configurable;
 
 /**
  * Settings for signing and verifying JWT tokens.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 @Dependent
+@ComponentScan(basePackages = { "com.mut.feeapi.*" })
+@PropertySource("classpath:application.properties")
 class AuthenticationTokenSettings {
 
-    /**
-     * Secret for signing and verifying the token signature.
-     */
-    @Inject
-    @Configurable("authentication.jwt.secret")
+
+//    @Inject
+//    @Configurable("authentication.jwt.secret")
     private String secret;
 
-    /**
-     * Allowed clock skew for verifying the token signature (in seconds).
-     */
-    @Inject
-    @Configurable("authentication.jwt.clockSkew")
+//    @Inject
+//    @Configurable("authentication.jwt.clockSkew")
     private Long clockSkew;
 
-    /**
-     * Identifies the recipients that the JWT token is intended for.
-     */
-    @Inject
-    @Configurable("authentication.jwt.audience")
+//    @Inject
+//    @Configurable("authentication.jwt.audience")
     private String audience;
 
-    /**
-     * Identifies the JWT token issuer.
-     */
-    @Inject
-    @Configurable("authentication.jwt.issuer")
+//    @Inject
+//    @Configurable("authentication.jwt.issuer")
     private String issuer;
 
-    /**
-     * JWT claim for the authorities.
-     */
-    @Inject
-    @Configurable("authentication.jwt.claimNames.authorities")
+//    @Inject
+//    @Configurable("authentication.jwt.claimNames.authorities")
     private String authoritiesClaimName = "authorities";
 
-    /**
-     * JWT claim for the token refreshment count.
-     */
-    @Inject
-    @Configurable("authentication.jwt.claimNames.refreshCount")
+//    @Inject
+//    @Configurable("authentication.jwt.claimNames.refreshCount")
     private String refreshCountClaimName = "refreshCount";
 
-    /**
-     * JWT claim for the maximum times that a token can be refreshed.
-     */
-    @Inject
-    @Configurable("authentication.jwt.claimNames.refreshLimit")
+//    @Inject
+//    @Configurable("authentication.jwt.claimNames.refreshLimit")
     private String refreshLimitClaimName = "refreshLimit";
 
+    
+    Environment env;
+	public AuthenticationTokenSettings(Environment envTemp) {
+
+		env = envTemp;
+		secret = env.getProperty("authentication.jwt.validFor");
+		clockSkew = Long.parseLong(env.getProperty("authentication.jwt.clockSkew"));
+		audience = env.getProperty("authentication.jwt.audience");
+		issuer = env.getProperty("authentication.jwt.issuer");
+		authoritiesClaimName = env.getProperty("authentication.jwt.claimNames.authorities");
+		refreshCountClaimName = env.getProperty("authentication.jwt.validFor");
+		refreshLimitClaimName = env.getProperty("authentication.jwt.claimNames.refreshCount");
+	}
+    
     public String getSecret() {
         return secret;
     }

@@ -3,7 +3,7 @@ package com.mut.feeapi.security.exception;
 /**
  * Thrown if errors occur during the authentication process.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 public class AuthenticationException extends RuntimeException {
 

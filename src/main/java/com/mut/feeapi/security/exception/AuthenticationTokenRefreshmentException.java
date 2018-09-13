@@ -3,7 +3,7 @@ package com.mut.feeapi.security.exception;
 /**
  * Thrown if an authentication token cannot be refreshed.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 public class AuthenticationTokenRefreshmentException extends RuntimeException {
 

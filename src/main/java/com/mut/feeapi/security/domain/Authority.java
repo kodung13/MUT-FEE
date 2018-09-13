@@ -5,7 +5,7 @@ import com.mut.feeapi.user.domain.User;
 /**
  * Represents an authority granted to a {@link User}.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 public enum Authority {
     ADMIN, USER

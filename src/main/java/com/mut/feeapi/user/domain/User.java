@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * Persistence model that represents a user.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 
 public @Data class User implements Serializable {

@@ -6,16 +6,26 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+
+import org.springframework.core.env.Environment;
+
 import java.util.Date;
 
 /**
  * Component which provides operations for issuing JWT tokens.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 @Dependent
 class AuthenticationTokenIssuer {
 
+	
+	Environment env;
+	public AuthenticationTokenIssuer(Environment envTemp) {
+
+		env = envTemp;
+	}
+	
     @Inject
     private AuthenticationTokenSettings settings;
 
@@ -27,6 +37,8 @@ class AuthenticationTokenIssuer {
      */
     public String issueToken(AuthenticationTokenDetails authenticationTokenDetails) {
 
+    	AuthenticationTokenSettings settings = new AuthenticationTokenSettings(env);
+    	
         return Jwts.builder()
                 .setId(authenticationTokenDetails.getId())
                 .setIssuer(settings.getIssuer())

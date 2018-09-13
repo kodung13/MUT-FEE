@@ -9,7 +9,7 @@ import java.security.Principal;
 /**
  * {@link SecurityContext} implementation for token-based authentication.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 public class TokenBasedSecurityContext implements SecurityContext {
 

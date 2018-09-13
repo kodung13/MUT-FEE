@@ -1,43 +1,44 @@
 package com.mut.feeapi.security.service;
 
-import com.mut.feeapi.common.configuration.Configurable;
-import com.mut.feeapi.security.api.AuthenticationTokenDetails;
-import com.mut.feeapi.security.domain.Authority;
-import com.mut.feeapi.security.exception.AuthenticationTokenRefreshmentException;
+import java.time.ZonedDateTime;
+import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.time.ZonedDateTime;
-import java.util.Set;
-import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.mut.feeapi.common.configuration.Configurable;
+import com.mut.feeapi.security.api.AuthenticationTokenDetails;
+import com.mut.feeapi.security.exception.AuthenticationTokenRefreshmentException;
 
 /**
  * Service which provides operations for authentication tokens.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 @ApplicationScoped
+@ComponentScan(basePackages = { "com.mut.feeapi.*" })
+@PropertySource("classpath:application.properties")
 public class AuthenticationTokenService {
 
-    /**
-     * How long the token is valid for (in seconds).
-     */
-    @Inject
-    @Configurable("authentication.jwt.validFor")
     private Long validFor;
 
-    /**
-     * How many times the token can be refreshed.
-     */
-    @Inject
-    @Configurable("authentication.jwt.refreshLimit")
+
     private Integer refreshLimit;
 
-    @Inject
-    private AuthenticationTokenIssuer tokenIssuer;
+    Environment env;
+	public AuthenticationTokenService(Environment envTemp) {
 
-    @Inject
-    private AuthenticationTokenParser tokenParser;
+		env = envTemp;
+		validFor =  Long.parseLong(env.getProperty("authentication.jwt.validFor"));
+		refreshLimit = Integer.parseInt(env.getProperty("authentication.jwt.refreshLimit"));
+
+	}
 
     /**
      * Issue a token for a user with the given authorities.
@@ -51,7 +52,7 @@ public class AuthenticationTokenService {
         String id = generateTokenIdentifier();
         ZonedDateTime issuedDate = ZonedDateTime.now();
         ZonedDateTime expirationDate = calculateExpirationDate(issuedDate);
-
+        AuthenticationTokenIssuer tokenIssuer = new AuthenticationTokenIssuer(env);
         AuthenticationTokenDetails authenticationTokenDetails = new AuthenticationTokenDetails.Builder()
                 .withId(id)
                 .withUsername(username)
@@ -71,6 +72,7 @@ public class AuthenticationTokenService {
      * @return
      */
     public AuthenticationTokenDetails parseToken(String token) {
+    	AuthenticationTokenParser tokenParser = new AuthenticationTokenParser(env);
         return tokenParser.parseToken(token);
     }
 
@@ -88,7 +90,7 @@ public class AuthenticationTokenService {
 
         ZonedDateTime issuedDate = ZonedDateTime.now();
         ZonedDateTime expirationDate = calculateExpirationDate(issuedDate);
-
+        AuthenticationTokenIssuer tokenIssuer = new AuthenticationTokenIssuer(env);
         AuthenticationTokenDetails newTokenDetails = new AuthenticationTokenDetails.Builder()
                 .withId(currentTokenDetails.getId()) // Reuse the same id
                 .withUsername(currentTokenDetails.getUsername())

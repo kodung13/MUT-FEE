@@ -4,7 +4,7 @@ package com.mut.feeapi.security.exception;
 /**
  * Thrown if an authentication token is invalid.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 public class InvalidAuthenticationTokenException extends RuntimeException {
 

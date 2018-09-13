@@ -8,6 +8,9 @@ import io.jsonwebtoken.*;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.core.env.Environment;
+
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -18,14 +21,19 @@ import java.util.stream.Collectors;
 /**
  * Component which provides operations for parsing JWT tokens.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 @Dependent
 class AuthenticationTokenParser {
 
-    @Inject
-    private AuthenticationTokenSettings settings;
+//    @Inject
+//    private AuthenticationTokenSettings settings;
 
+	 Environment env;
+		public AuthenticationTokenParser(Environment envTemp) {
+			env = envTemp;	
+		}
+	
     /**
      * Parse a JWT token.
      *
@@ -35,7 +43,7 @@ class AuthenticationTokenParser {
     public AuthenticationTokenDetails parseToken(String token) {
 
         try {
-
+        	AuthenticationTokenSettings settings = new AuthenticationTokenSettings(env);
             Claims claims = Jwts.parser()
                     .setSigningKey(settings.getSecret())
                     .requireAudience(settings.getAudience())
@@ -91,6 +99,7 @@ class AuthenticationTokenParser {
      * @return User authorities from the JWT token
      */
     private Set<Authority> extractAuthoritiesFromClaims(@NotNull Claims claims) {
+    	AuthenticationTokenSettings settings = new AuthenticationTokenSettings(env);
         List<String> rolesAsString = (List<String>) claims.getOrDefault(settings.getAuthoritiesClaimName(), new ArrayList<>());
         return rolesAsString.stream().map(Authority::valueOf).collect(Collectors.toSet());
     }
@@ -122,6 +131,7 @@ class AuthenticationTokenParser {
      * @return Refresh count from the JWT token
      */
     private int extractRefreshCountFromClaims(@NotNull Claims claims) {
+    	AuthenticationTokenSettings settings = new AuthenticationTokenSettings(env);
         return (int) claims.get(settings.getRefreshCountClaimName());
     }
 
@@ -132,6 +142,7 @@ class AuthenticationTokenParser {
      * @return Refresh limit from the JWT token
      */
     private int extractRefreshLimitFromClaims(@NotNull Claims claims) {
+    	AuthenticationTokenSettings settings = new AuthenticationTokenSettings(env);
         return (int) claims.get(settings.getRefreshLimitClaimName());
     }
 }

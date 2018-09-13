@@ -3,7 +3,7 @@ package com.mut.feeapi.security.api.model;
 /**
  * API model for the authentication token.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 public class AuthenticationToken {
 

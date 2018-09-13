@@ -13,7 +13,7 @@ import java.util.Properties;
  * <p>
  * It's a simple and lightweight alternative to the Apache DeltaSpike Configuration Mechanism.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 @ApplicationScoped
 public class ConfigurationProducer {

@@ -9,16 +9,20 @@ import com.mut.feeapi.security.domain.Authority;
 /**
  * {@link Principal} implementation with a set of {@link Authority}.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 public final class AuthenticatedUserDetails implements Principal {
 
-    private final String username;
-    private final Set<Authority> authorities;
+    private  String username;
+    private  Set<Authority> authorities;
 
     public AuthenticatedUserDetails(String username, Set<Authority> authorities) {
         this.username = username;
         this.authorities = Collections.unmodifiableSet(authorities);
+    }
+    
+    public AuthenticatedUserDetails(String username) {
+        this.username = username;
     }
 
     public Set<Authority> getAuthorities() {

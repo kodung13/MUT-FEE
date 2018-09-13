@@ -11,7 +11,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * CDI qualifier for injecting configurable values.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 @Qualifier
 @Retention(RUNTIME)

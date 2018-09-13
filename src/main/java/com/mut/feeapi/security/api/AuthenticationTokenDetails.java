@@ -10,19 +10,21 @@ import com.mut.feeapi.security.domain.Authority;
 /**
  * Model that holds details about an authentication token.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 public final class AuthenticationTokenDetails {
 
-    private final String id;
-    private final String username;
-    private final Set<Authority> authorities;
-    private final ZonedDateTime issuedDate;
-    private final ZonedDateTime expirationDate;
-    private final int refreshCount;
-    private final int refreshLimit;
+    private  String id;
+    private  String username;
+    private  Set<Authority> authorities;
+    private  ZonedDateTime issuedDate;
+    private  ZonedDateTime expirationDate;
+    private  int refreshCount;
+    private  int refreshLimit;
 
-    private AuthenticationTokenDetails(String id, String username, Set<Authority> authorities, ZonedDateTime issuedDate, ZonedDateTime expirationDate, int refreshCount, int refreshLimit) {
+    public AuthenticationTokenDetails() {}
+    
+    public AuthenticationTokenDetails(String id, String username, Set<Authority> authorities, ZonedDateTime issuedDate, ZonedDateTime expirationDate, int refreshCount, int refreshLimit) {
         this.id = id;
         this.username = username;
         this.authorities = authorities;

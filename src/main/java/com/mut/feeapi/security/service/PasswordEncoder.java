@@ -7,7 +7,7 @@ import javax.enterprise.context.ApplicationScoped;
 /**
  * bcrypt password encoder.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 @ApplicationScoped
 public class PasswordEncoder {

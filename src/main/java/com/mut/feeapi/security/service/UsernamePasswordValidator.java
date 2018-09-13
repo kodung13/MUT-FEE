@@ -8,20 +8,25 @@ import com.mut.feeapi.security.exception.AuthenticationException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 /**
  * Component for validating user credentials.
  *
- * @author cassiomolin
+ * @author TanagornS
  */
 @ApplicationScoped
 public class UsernamePasswordValidator {
 
-    @Inject
-    private UserService userService;
+	JdbcTemplate jdbcTemplate;
+	public UsernamePasswordValidator(JdbcTemplate jdbcTemp) {
 
-    @Inject
-    private PasswordEncoder passwordEncoder;
+		jdbcTemplate = jdbcTemp;
 
+	}
+	
     /**
      * Validate username and password.
      *
@@ -31,16 +36,13 @@ public class UsernamePasswordValidator {
      */
     public User validateCredentials(String username, String password) {
 
-        User user = userService.findByUsernameOrEmail(username);
+    	UserService userService =  new UserService();
+    	PasswordEncoder passwordEncoder =  new PasswordEncoder();
+        User user = userService.findByUsernameOrEmail(username,jdbcTemplate);
 
         if (user == null) {
             // User cannot be found with the given username/email
             throw new AuthenticationException("Bad credentials.");
-        }
-
-        if (!user.isActive()) {
-            // User is not active
-            throw new AuthenticationException("The user is inactive.");
         }
 
         if (!passwordEncoder.checkPassword(password, user.getPASSWORD())) {
