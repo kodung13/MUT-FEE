@@ -49,7 +49,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
-    	System.out.println("requestContext : "+requestContext);
+
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             String authenticationToken = authorizationHeader.substring(7);
@@ -61,8 +61,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
     private void handleTokenBasedAuthentication(String authenticationToken, ContainerRequestContext requestContext) {
 
-    	System.out.println("authenticationToken : "+authenticationToken);
-    	System.out.println("requestContext : "+requestContext);
     	UserService userService =  new UserService();
     	AuthenticationTokenService authenticationTokenService = new AuthenticationTokenService(env);
     	AuthenticationTokenDetails authenticationTokenDetails = authenticationTokenService.parseToken(authenticationToken);

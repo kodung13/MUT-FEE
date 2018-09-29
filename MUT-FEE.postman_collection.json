@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "0e59e3c3-b80c-4750-8940-4059ec5b9e85",
+		"name": "MUT-FEE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"if (responseCode.code === 200) {",
+							"    var data = JSON.parse(responseBody);",
+							"    postman.setEnvironmentVariable(\"auth.token\", data.token);",
+							"} else {",
+							"    postman.setEnvironmentVariable(\"auth.token\", '');",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"password\"\n}"
+				},
+				"url": {
+					"raw": "{{config.baseUrl}}/api/auth",
+					"host": [
+						"{{config.baseUrl}}"
+					],
+					"path": [
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fee with PRODID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth.token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{config.baseUrl}}/api/fee/1",
+					"host": [
+						"{{config.baseUrl}}"
+					],
+					"path": [
+						"api",
+						"fee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fee PRODID Nont Token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer "
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{config.baseUrl}}/api/fee/1",
+					"host": [
+						"{{config.baseUrl}}"
+					],
+					"path": [
+						"api",
+						"fee",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

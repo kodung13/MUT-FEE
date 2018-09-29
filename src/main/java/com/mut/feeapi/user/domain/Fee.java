@@ -8,11 +8,9 @@ import lombok.Data;
 
 public @Data class Fee implements Serializable {
 
-    private BigInteger PRODID;
-
-    private String PRODNAME;
-
-    private String PRODFEE;
+    private BigInteger PROD_ID;
+    private String PROD_NAME;
+    private String PROD_FEE;
 
 
 

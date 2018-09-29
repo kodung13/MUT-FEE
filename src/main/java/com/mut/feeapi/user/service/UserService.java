@@ -43,8 +43,7 @@ public class UserService {
      */
     public User findByUsernameOrEmail(String identifier,JdbcTemplate jdbcTemplate) {
 
-    	System.out.println("jdbcTemplate : "+jdbcTemplate);
-    	
+
         StringBuffer sqlStr = new StringBuffer();
         sqlStr.append("SELECT * FROM USER_ACCT ");
         sqlStr.append("WHERE USERNAME = ? OR EMAIL = ?");
@@ -54,7 +53,6 @@ public class UserService {
 				preparedStatement.setString(2, identifier);
 			}
 		}, new BeanPropertyRowMapper<User>(User.class)); 
-		System.out.println("userList : "+userList);
 		if (userList.isEmpty()) {
             return null;
         }
